@@ -55,7 +55,7 @@ export const authenticate = (data, next) => {
 // check if user is authenticated by checking
 // for token in the localstorage
 export const isAuthenticated = () => {
-  if (typeof window !== undefined) {
+  if (typeof window == undefined) {
     return false;
   }
   if (localStorage.getItem("jwt")) {
