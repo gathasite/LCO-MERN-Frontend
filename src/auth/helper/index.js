@@ -6,7 +6,7 @@ export const signup = (user) => {
   alert("user" + JSON.stringify(user));
   return fetch(`${API}/signup`, {
     method: "POST",
-    headres: {
+    headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
@@ -23,7 +23,7 @@ export const signup = (user) => {
 export const signin = (user) => {
   return fetch(`${API}/signin`, {
     method: "POST",
-    headres: {
+    headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
