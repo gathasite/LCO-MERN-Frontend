@@ -3,7 +3,6 @@ import { API } from "../../backend";
 
 // signup
 export const signup = (user) => {
-  alert("user" + JSON.stringify(user));
   return fetch(`${API}/signup`, {
     method: "POST",
     headers: {
@@ -13,7 +12,6 @@ export const signup = (user) => {
     body: JSON.stringify(user),
   })
     .then((response) => {
-      alert("response" + JSON.stringify(response));
       return response.json();
     })
     .catch((err) => console.log(err));
@@ -49,7 +47,7 @@ export const signout = (next) => {
 // authenticate user
 export const authenticate = (data, next) => {
   if (typeof window !== undefined) {
-    localStorage.removeItem("jwt", JSON.stringify(data));
+    localStorage.setItem("jwt", JSON.stringify(data));
     next();
   }
 };
