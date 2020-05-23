@@ -3,6 +3,8 @@ import { isAuthenticated } from "../auth/helper";
 import { emptyCart, loadCart } from "./helper/cartHelper";
 import { Link } from "react-router-dom";
 import StripeCheckoutButton from "react-stripe-checkout";
+import { API } from "../backend";
+import { createOrder } from "./helper/orderHelper";
 
 const StripeCheckout = ({
   products,
@@ -33,13 +35,32 @@ const StripeCheckout = ({
   };
 
   const makePayment = (token) => {
-    //
+    const body = {
+      token,
+      products,
+    };
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    return fetch(`${API}/stripepayments`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify(body),
+    })
+      .then((response) => {
+        console.log(response);
+        // call further method here
+        const { status } = response;
+        console.log("STATUS ", status);
+        emptyCart();
+      })
+      .catch((err) => console.log(err));
   };
 
   const stripeButton = () => {
     return isAuthenticated() ? (
       <StripeCheckoutButton
-        stripeKey=""
+        stripeKey="pk_test_9EEBKDFgfLyI2GjQrgcpeoaO00BHng0hM6"
         token={makePayment}
         amount={getFinalAmount() * 100}
         name="Buy TShirts"
